@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +6,11 @@ import { Component , OnInit} from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
+  keys: string[];
+  values: {}[];
+  subKeys = {};
+  objectKeys = Object.keys;
+  subKeysArr: any;
 
   ngOnInit() {
     const obj = [
@@ -21,9 +26,49 @@ export class AppComponent implements OnInit {
       }
     ];
 
-   // this.modifyJSON(obj);
+    const obj2 = {
+      'key 1': {
+        'a': 1, 'b': 2, 'c': 3
+      },
+      'key 2': {
+        'a': 4, 'b': 5, 'c': 6
+      }
+    };
 
-    this.modifyJSON2(obj);
+    // this.modifyJSON(obj);
+
+    // this.modifyJSON2(obj);
+
+    this.tablePlot(obj2);
+  }
+  tablePlot(JSONobj) {
+    this.keys = Object.keys(JSONobj);
+    this.values = Object.values(JSONobj);
+
+    Object.keys(this.values).forEach(
+      item => {
+        console.log(item);
+      }
+    );
+
+    )
+    this.keys.forEach(
+      key => {
+        //console.log(JSONobj[key]);
+
+        Object.keys(JSONobj[key]).forEach(
+          subkey => {
+            if (subkey in this.subKeys === false) {
+              this.subKeys[subkey] = '';
+            }
+          }
+        );
+
+      }
+    );
+    console.log('subkeys', this.objectKeys(this.subKeys));
+    this.subKeysArr = this.objectKeys(this.subKeys);
+
   }
   modifyJSON2(JSONobj) {
     const newArr = [];
