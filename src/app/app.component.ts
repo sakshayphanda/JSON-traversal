@@ -10,7 +10,8 @@ export class AppComponent implements OnInit {
   values: {}[];
   subKeys = {};
   objectKeys = Object.keys;
-  subKeysArr: any;
+  subKeysArr = [];
+  valueArray = [];
 
   ngOnInit() {
     const obj = [
@@ -45,28 +46,29 @@ export class AppComponent implements OnInit {
     this.keys = Object.keys(JSONobj);
     this.values = Object.values(JSONobj);
 
-    Object.keys(this.values).forEach(
+    Object.values(this.values).forEach(
       item => {
         console.log(item);
       }
     );
-
-    )
     this.keys.forEach(
       key => {
-        //console.log(JSONobj[key]);
-
+        const valueObj = {};
+        // console.log(JSONobj[key]);
         Object.keys(JSONobj[key]).forEach(
           subkey => {
             if (subkey in this.subKeys === false) {
               this.subKeys[subkey] = '';
             }
+            valueObj[subkey] = JSONobj[key][subkey];
+            // this.valueArray[i] = value;
           }
         );
-
+        this.valueArray.push(valueObj);
       }
     );
     console.log('subkeys', this.objectKeys(this.subKeys));
+    console.log('value array', this.valueArray);
     this.subKeysArr = this.objectKeys(this.subKeys);
 
   }

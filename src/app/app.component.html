@@ -6,7 +6,22 @@
 
   <tr *ngFor="let subkey of subKeysArr">
     <td>{{subkey}}</td>
-    <td></td>
-    <td></td>
+    <td>{{valueArray[0][subkey]}}</td>
+    <td>{{valueArray[1][subkey]}}</td>
   </tr>
 </table>
+
+
+
+<table style="margin-top: 50px ">
+    <tr>
+      <td></td>
+      <td *ngFor="let key of subKeysArr">{{key}}</td>
+    </tr>
+
+    <tr *ngFor="let key of keys; let i = index">
+      <td>{{key}}</td>
+      <td *ngFor="let value of objectKeys(valueArray[i])">{{valueArray[i][value]}}</td>
+    </tr>
+  </table>
+
