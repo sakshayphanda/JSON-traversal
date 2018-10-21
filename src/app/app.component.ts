@@ -10,8 +10,15 @@ export class AppComponent implements OnInit {
   values: {}[];
   subKeys = {};
   objectKeys = Object.keys;
+  objectValues = Object.values;
   subKeysArr = [];
   valueArray = [];
+
+  company = [];
+  frequency = [];
+  finalRequiredResult = {};
+  JSONarray = [];
+  tempObj = {};
 
   ngOnInit() {
     const obj = [
@@ -36,11 +43,110 @@ export class AppComponent implements OnInit {
       }
     };
 
-    // this.modifyJSON(obj);
+    const obj3 = {
+      pen: {
+        'cello': ['blue', 'green', 'red'],
+        'parker': ['red', 'yellow', 'blue'],
+        'renolds': ['green', 'grey', 'red']
+      },
+      marker: {
+        'a': ['red', 'blue'],
+        'b': ['green', 'red'],
+        'c': ['black', 'blue']
+      }
+    };
 
-    // this.modifyJSON2(obj);
+     this.JSONarray = [
+      {
+      'name': 'Hello',
+      'className': 'red',
+      'show': true
+      },
+      {
+      'name': 'Hello1',
+      'className': 'blue',
+      'show': false
+      },
+      {
+      'name': 'Hello2',
+      'className': 'green',
+      'show': true
+      }
+    ];
 
-    this.tablePlot(obj2);
+   // this.modifyJSON(obj);
+
+     // this.modifyJSON2(obj);
+
+     // this.tablePlot(obj2);
+
+    this.modifyJSON3(obj3);
+  }
+
+
+ // const obj ={};
+  modifyJSON3(JSONobj) {
+  //  const obj ={'pen':['cello',]};
+    this.objectKeys(JSONobj).forEach(
+      product => {
+        const obj = {};
+        obj[product] = [];
+       obj[product].push(product);
+
+
+        this.objectKeys(JSONobj[product]).forEach(
+          company => {
+        //    this.company.push(company);
+            obj[product].push(company);
+
+            (JSONobj[product][company]).forEach(
+              color => {
+                obj[product].push(color);
+                 console.log(this.tempObj);
+                console.log(product);
+                if(this.tempObj[product]) {
+                if (this.tempObj[product].includes(color)) {
+                 // this.finalRequiredResult[color]['Used'] = [];
+                  if (!this.tempObj[product].includes(product)) {
+                  this.finalRequiredResult[color]['Used'].push(product);
+                  }
+                } else {
+                  this.finalRequiredResult[color]['Used'] = [];
+
+                }
+              }
+
+                // if (this.tempObj[product].includes(color) && this.tempObj[product].inclues(company)) {
+                //   this.finalRequiredResult[color]['Company'].push(company);
+                // }
+
+                if (color in this.finalRequiredResult) {
+                            this.finalRequiredResult[color]['frequency'] += 1;
+                          } else {
+                            this.finalRequiredResult[color] = {};
+                            this.finalRequiredResult[color]['frequency'] = 1;
+                          }
+              }
+            );
+         //   obj[product].push(company);
+
+            // if(Arr.includes(color)){
+            //   if(color[used].includes(products))
+            //   fr[color]['used'].push =products;
+            // }
+
+          }
+        );
+
+
+        this.tempObj[product] = obj[product];
+      }
+    );
+    console.log('tempArray', this.tempObj);
+   // console.log('products', this.products);
+    // console.log('colors', this.colors);
+    // console.log('companies', this.company);
+    console.log('final JSON', this.finalRequiredResult);
   }
   tablePlot(JSONobj) {
     this.keys = Object.keys(JSONobj);

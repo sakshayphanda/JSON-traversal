@@ -14,14 +14,27 @@
 
 
 <table style="margin-top: 50px ">
-    <tr>
-      <td></td>
-      <td *ngFor="let key of subKeysArr">{{key}}</td>
-    </tr>
+  <tr>
+    <td></td>
+    <td *ngFor="let key of subKeysArr">{{key}}</td>
+  </tr>
 
-    <tr *ngFor="let key of keys; let i = index">
-      <td>{{key}}</td>
-      <td *ngFor="let value of objectKeys(valueArray[i])">{{valueArray[i][value]}}</td>
-    </tr>
-  </table>
+  <tr *ngFor="let key of keys; let i = index">
+    <td>{{key}}</td>
+    <td *ngFor="let value of objectKeys(valueArray[i])">{{valueArray[i][value]}}</td>
+  </tr>
+</table>
 
+
+
+
+<div class="abc" *ngFor="let i of JSONarray"
+
+[class.red] = "i.className === 'red'"
+[class.green] = "i.className === 'green'"
+[class.blue] = "i.className === 'blue'">
+
+  <p *ngIf = "i.show">{{i.name}}</p>
+  <p *ngIf = "!i.show">None</p>
+
+</div>
